@@ -1,0 +1,1 @@
+export type WatchList = [] | {item: string, comment?: string}[]
