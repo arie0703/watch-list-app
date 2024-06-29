@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { WatchList } from './types/watchlist'
 import { Table } from './components/Table'
+import { useWatchList } from './hooks/useWatchList'
 
 function App() {
   const [item, setItem] = useState("")
@@ -21,6 +22,8 @@ function App() {
     ])
   }
 
+  const [watchList] = useWatchList();
+
   return (
     <>
       <div>
@@ -33,7 +36,7 @@ function App() {
       </div>
       <h1>Watch List</h1>
       <div className="watch-list">
-        <Table watchList={mockedWatchList} />
+        <Table watchList={watchList || []} />
       </div>
       <div className="card">
         <p>

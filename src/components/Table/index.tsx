@@ -1,8 +1,8 @@
-import { WatchList } from '../../types/watchlist'
+import { AttributeValue } from '@aws-sdk/client-dynamodb'
 import styles from './table.module.scss'
 
 interface TableProps {
-  watchList: WatchList
+  watchList: Record<string, AttributeValue>[] | []
 }
 
 export const Table = ({watchList}: TableProps) => {
@@ -16,9 +16,11 @@ export const Table = ({watchList}: TableProps) => {
       </thead>
       {watchList.map((w) => {
         return (
-          <tbody>
-            <td>{w.item}</td>
-            <td>{w.comment}</td>
+          <tbody key={w.uuid.S}>
+            <tr>
+              <td>{w.name.S}</td>
+              <td>{w.comment.S}</td>
+            </tr>
           </tbody>
         )
       })}
