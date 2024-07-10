@@ -2,24 +2,14 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { WatchList } from './types/watchlist'
 import { Table } from './components/Table'
+import { useWatchList } from './hooks/useWatchList'
 
 function App() {
   const [item, setItem] = useState("")
   const [comment, setComment] = useState("")
 
-  const [mockedWatchList, setMockedWatchList] = useState<WatchList>([{item: "sample", comment: "sample"}]);
-
-  const addWatchList = (item: string, comment: string) => {
-    setMockedWatchList([
-      ...mockedWatchList,
-      {
-        item: item,
-        comment: comment,
-      }
-    ])
-  }
+  const {watchList, addWatchList} = useWatchList();
 
   return (
     <>
@@ -33,7 +23,7 @@ function App() {
       </div>
       <h1>Watch List</h1>
       <div className="watch-list">
-        <Table watchList={mockedWatchList} />
+        <Table watchList={watchList || []} />
       </div>
       <div className="card">
         <p>
