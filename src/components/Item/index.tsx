@@ -1,19 +1,28 @@
+import { deleteWatchList } from '../../hooks/useWatchList';
 import styles from './item.module.scss'
 
 interface ItemProps {
+  uuid: string;
   name: string;
   comment?: string;
 }
 
-export const Item = ({name, comment}: ItemProps) => {
+export const Item = ({uuid, name, comment}: ItemProps) => {
   return (
     <div className={styles["item-container"]}>
-      <div className={styles["rating"]}>
-        <span className={styles["star"]}>★</span>
-        <span className={styles["star"]}>★</span>
-        <span className={styles["star"]}>★</span>
-        <span className={styles["star"]}>★</span>
-        <span className={styles["star"]}>★</span>
+      <div className={styles["item-container-inner"]}>
+        <div className={styles["rating"]}>
+          <span className={styles["star"]}>★</span>
+          <span className={styles["star"]}>★</span>
+          <span className={styles["star"]}>★</span>
+          <span className={styles["star"]}>★</span>
+          <span className={styles["star"]}>★</span>
+        </div>
+        <div className={styles["delete-button"]}>
+          <button className={styles["delete-button"]} onClick={() => deleteWatchList(uuid)}>
+            <span className={styles["dli-minus"]}></span>
+          </button>
+        </div>
       </div>
       <div className={styles["item-content"]}>
         <div className={styles["item-name"]}>{name}</div>

@@ -13,7 +13,7 @@ function App() {
       <div className="watch-list">
       {watchList && watchList.map((w) => {
         return (
-          <Item name={w.name.S || ""} comment={w.comment.S || ""} />
+          <Item uuid={w.uuid.S || ""} name={w.name.S || ""} comment={w.comment.S || ""} />
           )
         })}
       </div>

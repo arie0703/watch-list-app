@@ -1,6 +1,5 @@
 .item-container {
-  display: flex;
-  align-items: center;
+  position: relative;
   background-color: #444;
   padding: 10px;
   border-radius: 10px;
@@ -9,19 +8,48 @@
   width: 500px;
 }
 
-.rating {
+.item-container-inner {
   display: flex;
+  justify-content: space-between;
+  width: 95%;
   margin-right: 10px;
-  position: relative;
-  top: -50px;
-}
+  position: absolute;
+  top: -20px;
 
-.star {
-  color: gold;
-  font-size: 24px;
+  .rating {
+    .star {
+      color: gold;
+      font-size: 24px;
+    }
+  }
+
+  .delete-button {
+    position: relative;
+    font-weight: 500;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 30px;
+    top: 10px;
+
+    .dli-minus {
+      display: inline-block;
+      vertical-align: middle;
+      color: #ddd;
+      line-height: 1;
+      width: 0.4em;
+      height: 0.08em;
+      background: currentColor;
+      border-radius: 0.1em;
+    }
+  }
 }
 
 .item-content {
+  display: flex;
+  width: 85%;
+  height: 80%;
+  align-items: center;
   position: absolute;
   padding: 0 20px;
 }
