@@ -24,7 +24,7 @@ const getWatchList = async() => {
   return result.Items
 }
 
-const addWatchList: (itemName: string, comment: string) => Promise<PutItemCommandOutput> = async(itemName: string, comment: string) => {
+export const addWatchList: (itemName: string, comment: string) => Promise<PutItemCommandOutput> = async(itemName: string, comment: string) => {
 
   const uuid = generateUniqueId();
   const command = new PutItemCommand({
@@ -57,5 +57,5 @@ export const useWatchList = () => {
     })();
   },[watchList])
 
-  return {watchList, addWatchList} ;
+  return {watchList} ;
 };
