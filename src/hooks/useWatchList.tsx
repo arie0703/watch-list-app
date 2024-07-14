@@ -1,4 +1,4 @@
-import { AttributeValue, DynamoDBClient, PutItemCommand, PutItemCommandOutput, ScanCommand } from "@aws-sdk/client-dynamodb";
+import { AttributeValue, DeleteItemCommand, DynamoDBClient, PutItemCommand, PutItemCommandOutput, ScanCommand } from "@aws-sdk/client-dynamodb";
 import { useEffect, useState } from "react";
 
 const tableName = import.meta.env.VITE_DYNAMODB_TABLE_NAME;
@@ -24,7 +24,7 @@ const getWatchList = async() => {
   return result.Items
 }
 
-const addWatchList: (itemName: string, comment: string) => Promise<PutItemCommandOutput> = async(itemName: string, comment: string) => {
+export const addWatchList: (itemName: string, comment: string) => Promise<PutItemCommandOutput> = async(itemName: string, comment: string) => {
 
   const uuid = generateUniqueId();
   const command = new PutItemCommand({
@@ -47,6 +47,22 @@ const addWatchList: (itemName: string, comment: string) => Promise<PutItemComman
   return response;
 }
 
+export const deleteWatchList: (uuid: string) => Promise<PutItemCommandOutput> = async(uuid: string) => {
+
+  const command = new DeleteItemCommand({
+    TableName: tableName,
+    Key: {
+      uuid: {
+        S: uuid
+      }
+    }
+  })
+
+  const response = await dynamoDBClient.send(command)
+  console.log(response);
+  return response;
+}
+
 export const useWatchList = () => {
   const [watchList, setWatchList] = useState<Record<string, AttributeValue>[] | undefined | []>([]);
 
@@ -57,5 +73,5 @@ export const useWatchList = () => {
     })();
   },[watchList])
 
-  return {watchList, addWatchList} ;
+  return {watchList} ;
 };

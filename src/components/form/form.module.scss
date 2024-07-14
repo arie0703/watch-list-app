@@ -1,0 +1,15 @@
+.form {
+  padding: 2em;
+}
+
+input.text-field {
+  padding: 12px;
+  font-size: 15px;
+  outline: none;
+  display: block;
+  margin: 10px auto;
+
+  border: none;
+  border-radius: 0.3rem;
+  background: darken(#555, 10%);
+}
