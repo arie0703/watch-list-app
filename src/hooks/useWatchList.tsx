@@ -1,77 +1,59 @@
-import { AttributeValue, DeleteItemCommand, DynamoDBClient, PutItemCommand, PutItemCommandOutput, ScanCommand } from "@aws-sdk/client-dynamodb";
+import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { WatchList } from "../types/watchlist";
 
-const tableName = import.meta.env.VITE_DYNAMODB_TABLE_NAME;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
-const dynamoDBClient = new DynamoDBClient({
-  region: import.meta.env.VITE_AWS_REGION,
-  credentials: {
-    accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
-    secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY
+export const getWatchList = async () => {
+  const { data, error } = await supabase.from("watchlist").select("*");
+
+  if (error) {
+    throw error;
   }
-})
+  return data;
+};
 
-const generateUniqueId = () => {
-  return Math.random().toString(32).substring(2);
-}
-
-const getWatchList = async() => {
-  const command = new ScanCommand({
-    TableName: tableName,
+export const addWatchList = async (
+  itemName: string,
+  comment: string,
+  category: string
+) => {
+  const { data, error } = await supabase.from("watchlist").insert({
+    title: itemName,
+    comment: comment,
+    category: category,
+    likes: 0,
   });
 
-  const result = await dynamoDBClient.send(command)
-  return result.Items
-}
+  if (error) {
+    throw error;
+  }
+  return { status: 201, data: data };
+};
 
-export const addWatchList: (itemName: string, comment: string) => Promise<PutItemCommandOutput> = async(itemName: string, comment: string) => {
+export const deleteWatchList = async (id: number) => {
+  const { data, error } = await supabase
+    .from("watchlist")
+    .delete()
+    .eq("id", id);
 
-  const uuid = generateUniqueId();
-  const command = new PutItemCommand({
-    TableName: tableName,
-    Item: {
-      uuid: {
-        S: uuid
-      },
-      name: {
-        S: itemName
-      },
-      comment: {
-        S: comment
-      }
-    }
-  })
-
-  const response = await dynamoDBClient.send(command)
-  console.log(response);
-  return response;
-}
-
-export const deleteWatchList: (uuid: string) => Promise<PutItemCommandOutput> = async(uuid: string) => {
-
-  const command = new DeleteItemCommand({
-    TableName: tableName,
-    Key: {
-      uuid: {
-        S: uuid
-      }
-    }
-  })
-
-  const response = await dynamoDBClient.send(command)
-  console.log(response);
-  return response;
-}
+  if (error) {
+    throw error;
+  }
+  return { status: 200, data: data };
+};
 
 export const useWatchList = () => {
-  const [watchList, setWatchList] = useState<Record<string, AttributeValue>[] | undefined | []>([]);
+  const [watchList, setWatchList] = useState<WatchList | null>(null);
 
   useEffect(() => {
-    (async() => {
-      const result = await getWatchList();
-      setWatchList(result)
+    (async () => {
+      const data = await getWatchList();
+      setWatchList(data);
     })();
-  },[watchList])
+  }, [watchList]);
 
-  return {watchList} ;
+  return { watchList };
 };
