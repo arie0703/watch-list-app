@@ -7,7 +7,7 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const getWatchList = async () => {
-  const { data, error } = await supabase.from("watchlist").select("*");
+  const { data, error } = await supabase.from("watchlist").select("*").order('id', { ascending: false });
 
   if (error) {
     throw error;
@@ -38,6 +38,22 @@ export const deleteWatchList = async (id: number) => {
     .from("watchlist")
     .delete()
     .eq("id", id);
+
+  if (error) {
+    throw error;
+  }
+  return { status: 200, data: data };
+};
+
+export const addLikes = async (
+  id: number,
+  currentLikes: number,
+) => {
+  const { data, error } = await supabase.from("watchlist")
+  .update({
+    likes: currentLikes + 1,
+  })
+  .eq("id", id);
 
   if (error) {
     throw error;
