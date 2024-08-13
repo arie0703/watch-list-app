@@ -34,15 +34,22 @@ export const addWatchList = async (
 };
 
 export const deleteWatchList = async (id: number) => {
-  const { data, error } = await supabase
+
+  if (window.confirm("アイテムを削除してよろしいですか？")) {
+    const { data, error } = await supabase
     .from("watchlist")
     .delete()
     .eq("id", id);
 
-  if (error) {
-    throw error;
+    if (error) {
+      throw error;
+    }
+    return { status: 200, data: data };
   }
-  return { status: 200, data: data };
+  return {
+    message: "削除処理はキャンセルされました"
+  }
+
 };
 
 export const addLikes = async (
