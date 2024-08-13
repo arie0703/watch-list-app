@@ -7,7 +7,7 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const getWatchList = async () => {
-  const { data, error } = await supabase.from("watchlist").select("*");
+  const { data, error } = await supabase.from("watchlist").select("*").order('id', { ascending: false });
 
   if (error) {
     throw error;
@@ -17,13 +17,11 @@ export const getWatchList = async () => {
 
 export const addWatchList = async (
   itemName: string,
-  comment: string,
-  category: string
+  comment: string
 ) => {
   const { data, error } = await supabase.from("watchlist").insert({
     title: itemName,
     comment: comment,
-    category: category,
     likes: 0,
   });
 
@@ -34,10 +32,33 @@ export const addWatchList = async (
 };
 
 export const deleteWatchList = async (id: number) => {
-  const { data, error } = await supabase
+
+  if (window.confirm("アイテムを削除してよろしいですか？")) {
+    const { data, error } = await supabase
     .from("watchlist")
     .delete()
     .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+    return { status: 200, data: data };
+  }
+  return {
+    message: "削除処理はキャンセルされました"
+  }
+
+};
+
+export const addLikes = async (
+  id: number,
+  currentLikes: number,
+) => {
+  const { data, error } = await supabase.from("watchlist")
+  .update({
+    likes: currentLikes + 1,
+  })
+  .eq("id", id);
 
   if (error) {
     throw error;
