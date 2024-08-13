@@ -10,7 +10,7 @@ export const Form = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSubmit((params: WatchListFormInput) => {
-      addWatchList(params.title, params.comment || "", params.category);
+      addWatchList(params.title, params.comment || "");
     })();
   };
 
@@ -29,14 +29,6 @@ export const Form = () => {
             placeholder="Comment"
             {...register("comment")}
           ></textarea>
-
-          <select
-            className={styles["select-category"]}
-            {...register("category")}
-          >
-            <option value="Event">イベント</option>
-            <option value="Product">モノ</option>
-          </select>
 
           <button className={styles["submit-button"]} type="submit">Add</button>
         </div>

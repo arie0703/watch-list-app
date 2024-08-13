@@ -17,13 +17,11 @@ export const getWatchList = async () => {
 
 export const addWatchList = async (
   itemName: string,
-  comment: string,
-  category: string
+  comment: string
 ) => {
   const { data, error } = await supabase.from("watchlist").insert({
     title: itemName,
     comment: comment,
-    category: category,
     likes: 0,
   });
 
