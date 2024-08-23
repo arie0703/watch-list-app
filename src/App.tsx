@@ -3,13 +3,23 @@ import { Item } from './components/Item'
 import { useWatchList } from './hooks/useWatchList'
 import { Form } from './components/form'
 import { Entry } from './components/entry';
+import { useCookies } from 'react-cookie';
+import { retrieveSession } from './libs/room';
+import { useEffect, useState } from 'react';
 
 function App() {
 
   const {watchList} = useWatchList();
+  const [cookies] = useCookies(); 
+  const [currentRoom, setCurrentRoom] = useState<string | null>(null);
 
-  // 現在入室中の部屋情報
-  const currentRoom = localStorage.getItem('currentRoom');
+  useEffect(() => {
+    (async() => {
+      // Cookieに保存されたセッションIDから入室中の部屋名をkvに問い合わせ
+      const roomName: string | null = await retrieveSession(cookies["session_id"]);
+      if (roomName) setCurrentRoom(roomName);
+    })()
+  }, []);
 
   return (
     <>
