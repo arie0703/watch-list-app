@@ -17,9 +17,9 @@ function App() {
     (async() => {
       // Cookieに保存されたセッションIDから入室中の部屋名をkvに問い合わせ
       const roomName: string | null = await retrieveSession(cookies["session_id"]);
-      if (roomName) setCurrentRoom(roomName);
+      setCurrentRoom(roomName);
     })()
-  }, []);
+  }, [cookies]);
 
   return (
     <>
