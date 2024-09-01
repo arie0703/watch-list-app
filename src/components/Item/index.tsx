@@ -38,7 +38,6 @@ export const Item = ({id, name, comment, likes}: ItemProps) => {
       </div>
       <div className={styles["item-content"]}>
         <div className={styles["item-name"]}>{name}</div>
-        <div className={styles["item-comment"]}>{comment}</div>
       </div>
     </div>
   )

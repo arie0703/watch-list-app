@@ -2,11 +2,11 @@
   position: relative;
   background-color: #fff;
   padding: 10px;
-  border:solid 4px #F0BD6C;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border-radius: 8px;
   margin-bottom: 30px;
-  min-height: 80px;
-  width: 500px;
+  min-height: 70px;
+  width: 150px;
+  margin: 10px 0;
 }
 
 .item-container-inner {
@@ -15,7 +15,7 @@
   width: 95%;
   margin-right: 10px;
   position: absolute;
-  top: -20px;
+  top: -30px;
 
   .like-container {
     display: flex;
