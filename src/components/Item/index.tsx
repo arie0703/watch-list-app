@@ -3,6 +3,7 @@ import styles from './item.module.scss'
 import likeSvg from '../../assets/like.svg'
 import likeFilledSvg from '../../assets/like_filled.svg'
 import { useState } from 'react';
+import Modal from 'react-modal';
 
 interface ItemProps {
   id: number;
@@ -14,6 +15,7 @@ interface ItemProps {
 export const Item = ({id, name, comment, likes}: ItemProps) => {
 
   const [likeIcon, setLikeIcon] = useState(likeSvg);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles["item-container"]}>
@@ -36,9 +38,17 @@ export const Item = ({id, name, comment, likes}: ItemProps) => {
           </button>
         </div>
       </div>
-      <div className={styles["item-content"]}>
+      <div className={styles["item-content"]} onClick={() => setIsOpen(true)}>
         <div className={styles["item-name"]}>{name}</div>
       </div>
+      
+      <Modal className={styles["modal-item-content"]} isOpen={modalIsOpen}>
+        <button className={styles["modal-close-button"]} onClick={() => setIsOpen(false)}>
+          <span className={styles["modal-close"]}></span>
+        </button>
+        <h2 className={styles["modal-item-name"]}>{name}</h2>
+        <p>{comment}</p>
+      </Modal>
     </div>
   )
 }
