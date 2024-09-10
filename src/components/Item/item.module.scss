@@ -2,11 +2,11 @@
   position: relative;
   background-color: #fff;
   padding: 10px;
-  border:solid 4px #F0BD6C;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border-radius: 8px;
   margin-bottom: 30px;
-  min-height: 80px;
-  width: 500px;
+  min-height: 70px;
+  width: 200px;
+  margin: 10px 0;
 }
 
 .item-container-inner {
@@ -15,7 +15,7 @@
   width: 95%;
   margin-right: 10px;
   position: absolute;
-  top: -20px;
+  top: -30px;
 
   .like-container {
     display: flex;
@@ -30,46 +30,124 @@
       margin-left: 5px;
     }
   }
-
-  .delete-button {
-    position: relative;
-    font-weight: 500;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    font-size: 30px;
-    top: 10px;
-
-    .dli-minus {
-      display: inline-block;
-      vertical-align: middle;
-      color: #ddd;
-      line-height: 1;
-      width: 0.4em;
-      height: 0.08em;
-      background: currentColor;
-      border-radius: 0.1em;
-    }
-  }
 }
 
 .item-content {
   display: flex;
-  width: 85%;
+  width: 90%;
   height: 80%;
   align-items: center;
   position: absolute;
-  padding: 0 20px;
+  padding: 0 12px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .item-name {
   display: inline-block;
-  margin-bottom: 5px;
-  width: 200px;
+  width: 100%;
+  margin: 0 auto;
   text-align: left;
 }
 
-.item-comment {
-  display: inline-block;
-  text-align: left;
+// Modal
+
+.modal-item-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column; // 縦方向のflex-box
+  inset: 50px;
+  border: 1px solid rgb(230, 230, 230);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 10px;
+  outline: none;
+  padding: 20px;
+  height: 50%;
+  max-width: 492px; // SPの画面幅くらい
+  margin: 0 auto;
+
+  .modal-bottom-container {
+    margin-top: auto; // 縦方向のflex-boxに対して最下部に要素を固定
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .like-container {
+      display: flex;
+
+      .like-button {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .delete-button {
+      background-color: transparent;
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      padding: 4px;
+      color: #333;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  
+}
+
+.modal-item-name {
+  margin: 0;
+  font-weight: 500;
+}
+
+.modal-close-button {
+  display: block;
+  margin-left: auto;
+  font-weight: 500;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .modal-close {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+
+    &::after, &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 3px; /* 棒の幅（太さ） */
+      height: 20px; /* 棒の高さ */
+      background: #888;
+    }
+
+    &::before {
+      transform: translate(-50%,-50%) rotate(45deg);
+    }
+
+    &::after {
+      transform: translate(-50%,-50%) rotate(-45deg);
+    }
+
+    &:hover {
+      &::after, &::before {
+        transition: 0.3s;
+        background: #555;
+      }
+    }
+  }
 }

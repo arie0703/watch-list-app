@@ -36,3 +36,13 @@
 .card {
   padding: 2em;
 }
+
+.watch-list-grid-container {
+  max-width: 492px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  justify-content: center;
+  grid-gap: 30px;
+}
+

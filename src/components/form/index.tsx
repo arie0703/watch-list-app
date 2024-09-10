@@ -5,13 +5,14 @@ import { WatchListFormInput } from "../../types/watchlist";
 
 export const Form = () => {
   const formMethods = useForm<WatchListFormInput>();
-  const { register, handleSubmit } = formMethods;
+  const { register, handleSubmit, reset } = formMethods;
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSubmit((params: WatchListFormInput) => {
       addWatchList(params.title, params.comment || "");
     })();
+    reset();
   };
 
   return (
