@@ -4,6 +4,10 @@ import env from "vite-plugin-env-compatible";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    'process.platform': null,
+    'process.version': null,
+ },
   plugins: [
     react(),
     env({ prefix: "",  mountedPath: "process.env" }) // vercel kvの環境変数を読み込むためにprocess.envが使える必要がある
