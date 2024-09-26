@@ -6,6 +6,7 @@ import { Entry } from "./components/entry";
 import { useCookies } from "react-cookie";
 import { retrieveSession } from "./libs/room";
 import { useEffect, useState } from "react";
+import { ExitButton } from "./components/exit-button";
 
 function App() {
   const { watchList } = useWatchList();
@@ -47,6 +48,7 @@ function App() {
             </div>
           </div>
           <Form />
+          <ExitButton />
         </>
       )}
     </>

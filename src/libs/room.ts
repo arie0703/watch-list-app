@@ -28,7 +28,7 @@ export const entryRoom = async (
   if (error) {
     return {
       status: 500,
-      message: 'ログインに失敗しました',
+      message: '入室に失敗しました',
       isSuccess: false,
       error: error,
     };
@@ -37,21 +37,21 @@ export const entryRoom = async (
   if (!data.length) {
     return {
       status: 400,
-      message: 'ログインに失敗しました',
+      message: '入室に失敗しました',
       isSuccess: false,
       error: 'ルーム名、もしくはパスワードが間違っています'
     }
   }
 
   const sessionID = generateSessionId();
-  console.log("セッションが作成されました", sessionID);
+  console.log("セッションが作成されました");
 
   // KVSに入室状況を記録
   kv.set(sessionID, roomName);
 
   return {
     status: 200,
-    message: 'ログインに成功しました',
+    message: '入室に成功しました',
     sessionId: sessionID,
     isSuccess: true,
   }
