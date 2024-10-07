@@ -1,21 +1,32 @@
-
 import { FormProvider, useForm } from "react-hook-form";
 import styles from "./entry.module.scss";
 import { EntryRoomFormInput, EntryRoomResponse } from "../../types/entryRoom";
 import { entryRoom } from "../../libs/room";
 import { useCookies } from "react-cookie";
 
-export const Entry = () => {
+interface EntryProps {
+  setCurrentRoom: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+export const Entry = ({ setCurrentRoom }: EntryProps) => {
   const formMethods = useForm<EntryRoomFormInput>();
   const { register, handleSubmit } = formMethods;
-  const [_, setCookie] = useCookies(); 
+  const [_, setCookie] = useCookies();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSubmit(async (params: EntryRoomFormInput) => {
-      const response: EntryRoomResponse = await entryRoom(params.roomName, params.roomPass);
+      const response: EntryRoomResponse = await entryRoom(
+        params.roomName,
+        params.roomPass
+      );
+
       // 入室に成功した場合、セッションIDをCookieに保存
-      if (response.isSuccess) setCookie("session_id", response.sessionId);
+      if (response.isSuccess) {
+        setCookie("session_id", response.sessionId);
+        // 親コンポーネントのcurrentRoomをここでセットしておくことで,kvへの問い合わせを省略する
+        setCurrentRoom(params.roomName);
+      }
       return alert(response.message);
     })();
   };
@@ -36,7 +47,9 @@ export const Entry = () => {
             {...register("roomPass")}
           ></input>
 
-          <button className={styles["submit-button"]} type="submit">Entry</button>
+          <button className={styles["submit-button"]} type="submit">
+            Entry
+          </button>
         </div>
       </form>
     </FormProvider>
