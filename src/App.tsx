@@ -15,11 +15,14 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      // Cookieに保存されたセッションIDから入室中の部屋名をkvに問い合わせ
-      const roomName: string | null = await retrieveSession(
-        cookies["session_id"]
-      );
-      setCurrentRoom(roomName);
+      const sessionID = cookies["session_id"];
+      if (sessionID && !currentRoom) {
+        // Cookieに保存されたセッションIDから入室中の部屋名をkvに問い合わせ
+        const roomName: string | null = await retrieveSession(
+          cookies["session_id"]
+        );
+        setCurrentRoom(roomName);
+      }
     })();
   }, [cookies]);
 
@@ -27,7 +30,7 @@ function App() {
     <>
       <h1 className="app-title">やりたいリスト</h1>
 
-      {!currentRoom && <Entry />}
+      {!currentRoom && <Entry setCurrentRoom={setCurrentRoom} />}
 
       {currentRoom && (
         <>
@@ -48,7 +51,7 @@ function App() {
             </div>
           </div>
           <Form />
-          <ExitButton />
+          <ExitButton setCurrentRoom={setCurrentRoom} />
         </>
       )}
     </>

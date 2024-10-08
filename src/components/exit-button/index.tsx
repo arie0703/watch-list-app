@@ -1,13 +1,17 @@
 import styles from "./exit-button.module.scss";
 import { useCookies } from "react-cookie";
 
-export const ExitButton = () => {
+interface ExitButtonProps {
+  setCurrentRoom: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+export const ExitButton = ({ setCurrentRoom }: ExitButtonProps) => {
   const [_, setCookie] = useCookies();
 
   const exitRoom = () => {
     // session_idを削除することで、入室状況がリセットされる
     setCookie("session_id", null);
-    console.log("セッションが取り消されました");
+    setCurrentRoom(null);
   };
 
   return (
