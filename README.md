@@ -18,12 +18,13 @@
 | comment | text | |
 | likes | number | |
 | created_at | timestamp | |
+| room_uuid | timestamp | foreign key room.uuid, CASCADE |
 
 ### Room
 
 | Column Name | Type | Constraints |
 | ---- | ---- | ---- |
-| id | number | primary key |
+| uuid | uuid | primary key |
 | name | text | Not NULL, Unique |
 | entry_pass | text | Not NULL |
 | created_at | timestamp | |

@@ -3,14 +3,18 @@ import styles from "./form.module.scss";
 import { FormProvider, useForm } from "react-hook-form";
 import { WatchListFormInput } from "../../types/watchlist";
 
-export const Form = () => {
+interface FormProps {
+  roomUUID: string;
+}
+
+export const Form = ({ roomUUID }: FormProps) => {
   const formMethods = useForm<WatchListFormInput>();
   const { register, handleSubmit, reset } = formMethods;
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSubmit((params: WatchListFormInput) => {
-      addWatchList(params.title, params.comment || "");
+      addWatchList(params.title, params.comment || "", roomUUID);
     })();
     reset();
   };
@@ -31,7 +35,9 @@ export const Form = () => {
             {...register("comment")}
           ></textarea>
 
-          <button className={styles["submit-button"]} type="submit">Add</button>
+          <button className={styles["submit-button"]} type="submit">
+            Add
+          </button>
         </div>
       </form>
     </FormProvider>

@@ -21,7 +21,7 @@ export const entryRoom = async (
 ): Promise<EntryRoomResponse> => {
 
   const { data, error } = await supabase.from("room")
-    .select("*")
+    .select("uuid")
     .eq('name', roomName)
     .eq('entry_pass', roomPass);
 
@@ -47,12 +47,13 @@ export const entryRoom = async (
   console.log("セッションが作成されました");
 
   // KVSに入室状況を記録
-  kv.set(sessionID, roomName);
+  kv.set(sessionID, data[0].uuid);
 
   return {
     status: 200,
     message: '入室に成功しました',
     sessionId: sessionID,
+    roomUUID: data[0].uuid,
     isSuccess: true,
   }
 };
