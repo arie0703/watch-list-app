@@ -1,15 +1,13 @@
 import "./App.scss";
-import { Item } from "./components/Item";
-import { useWatchList } from "./hooks/useWatchList";
 import { Form } from "./components/form";
 import { Entry } from "./components/entry";
 import { useCookies } from "react-cookie";
 import { retrieveSession } from "./libs/room";
 import { useEffect, useState } from "react";
 import { ExitButton } from "./components/exit-button";
+import { WatchList } from "./components/watch-list";
 
 function App() {
-  const { watchList } = useWatchList();
   const [cookies] = useCookies();
   const [currentRoom, setCurrentRoom] = useState<string | null>(null);
 
@@ -17,11 +15,11 @@ function App() {
     (async () => {
       const sessionID = cookies["session_id"];
       if (sessionID && !currentRoom) {
-        // Cookieに保存されたセッションIDから入室中の部屋名をkvに問い合わせ
-        const roomName: string | null = await retrieveSession(
+        // Cookieに保存されたセッションIDから入室中の部屋UUIDをkvに問い合わせ
+        const roomUUID: string | null = await retrieveSession(
           cookies["session_id"]
         );
-        setCurrentRoom(roomName);
+        setCurrentRoom(roomUUID);
       }
     })();
   }, [cookies]);
@@ -34,23 +32,8 @@ function App() {
 
       {currentRoom && (
         <>
-          <div className="watch-list">
-            <div className="watch-list-grid-container">
-              {watchList &&
-                watchList.map((w) => {
-                  return (
-                    <Item
-                      key={w.id}
-                      id={w.id}
-                      name={w.title}
-                      comment={w.comment || ""}
-                      likes={w.likes}
-                    />
-                  );
-                })}
-            </div>
-          </div>
-          <Form />
+          <WatchList roomUUID={currentRoom} />
+          <Form roomUUID={currentRoom} />
           <ExitButton setCurrentRoom={setCurrentRoom} />
         </>
       )}

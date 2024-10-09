@@ -10,5 +10,6 @@ export interface EntryRoomResponse {
   message: string;
   isSuccess: boolean;
   sessionId?: string;
+  roomUUID?: string;
   error?: string | PostgrestError;
 }

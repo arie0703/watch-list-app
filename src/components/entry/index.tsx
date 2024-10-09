@@ -22,10 +22,10 @@ export const Entry = ({ setCurrentRoom }: EntryProps) => {
       );
 
       // 入室に成功した場合、セッションIDをCookieに保存
-      if (response.isSuccess) {
+      if (response.isSuccess && response.roomUUID) {
         setCookie("session_id", response.sessionId);
-        // 親コンポーネントのcurrentRoomをここでセットしておくことで,kvへの問い合わせを省略する
-        setCurrentRoom(params.roomName);
+        // 親コンポーネントのcurrentRoomにroomUUIDをここでセットしておくことで,kvへの問い合わせを省略する
+        setCurrentRoom(response.roomUUID);
       }
       return alert(response.message);
     })();
