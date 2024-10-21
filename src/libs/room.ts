@@ -1,6 +1,7 @@
 import { kv } from "@vercel/kv";
 import { supabase } from "../hooks/useWatchList";
 import { EntryRoomResponse } from "../types/entryRoom";
+import { decrypt } from "./cryption";
 
 // セッションIDとしてランダム文字列を生成
 const generateSessionId = () => {
@@ -21,9 +22,9 @@ export const entryRoom = async (
 ): Promise<EntryRoomResponse> => {
 
   const { data, error } = await supabase.from("room")
-    .select("uuid")
+    .select("uuid, entry_pass")
     .eq('name', roomName)
-    .eq('entry_pass', roomPass);
+    .limit(1);
 
   if (error) {
     return {
@@ -34,14 +35,16 @@ export const entryRoom = async (
     };
   }
 
-  if (!data.length) {
+  const decryptedRoomPass = decrypt(data[0].entry_pass);
+
+  if (decryptedRoomPass != roomPass) {
     return {
       status: 400,
       message: '入室に失敗しました',
       isSuccess: false,
       error: 'ルーム名、もしくはパスワードが間違っています'
     }
-  }
+  } 
 
   const sessionID = generateSessionId();
   console.log("セッションが作成されました");
