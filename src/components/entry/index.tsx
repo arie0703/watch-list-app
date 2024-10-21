@@ -44,6 +44,7 @@ export const Entry = ({ setCurrentRoom }: EntryProps) => {
           <input
             className={styles["text-field"]}
             placeholder="Pass"
+            type="password"
             {...register("roomPass")}
           ></input>
 
