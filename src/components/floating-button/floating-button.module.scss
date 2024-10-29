@@ -1,0 +1,103 @@
+.floating-button button {
+  border: none;
+  background: #ffd767;
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  bottom: 10px;
+  right: 10px;
+  // padding: 6px 40px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.dli-plus {
+  display: inline-block;
+  vertical-align: middle;
+  color: #555;
+  line-height: 1;
+  width: 1em;
+  height: 0.1em;
+  background: currentColor;
+  border-radius: 0.1em;
+  position: relative;
+  font-size: 18px;
+}
+
+.dli-plus::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: inherit;
+  transform: rotate(90deg);
+}
+
+// Modal
+.modal-item-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column; // 縦方向のflex-box
+  inset: 20px;
+  border: 1px solid rgb(230, 230, 230);
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  outline: none;
+  max-height: 350px;
+  padding: 10px;
+  top: 15%;
+}
+
+
+// Itemと同じ
+.modal-close-button {
+  display: block;
+  margin-left: auto;
+  font-weight: 500;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .modal-close {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+
+    &::after, &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 3px; /* 棒の幅（太さ） */
+      height: 20px; /* 棒の高さ */
+      background: #888;
+    }
+
+    &::before {
+      transform: translate(-50%,-50%) rotate(45deg);
+    }
+
+    &::after {
+      transform: translate(-50%,-50%) rotate(-45deg);
+    }
+
+    &:hover {
+      &::after, &::before {
+        transition: 0.3s;
+        background: #555;
+      }
+    }
+  }
+}

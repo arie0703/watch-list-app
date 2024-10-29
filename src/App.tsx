@@ -6,6 +6,7 @@ import { retrieveSession } from "./libs/room";
 import { useEffect, useState } from "react";
 import { ExitButton } from "./components/exit-button";
 import { WatchList } from "./components/watch-list";
+import { FloatingButton } from "./components/floating-button";
 
 function App() {
   const [cookies] = useCookies();
@@ -33,8 +34,13 @@ function App() {
       {currentRoom && (
         <>
           <WatchList roomUUID={currentRoom} />
-          <Form roomUUID={currentRoom} />
+          <div className="pc">
+            <Form roomUUID={currentRoom} />
+          </div>
           <ExitButton setCurrentRoom={setCurrentRoom} />
+          <div className="mobile">
+            <FloatingButton roomUUID={currentRoom} />
+          </div>
         </>
       )}
     </>
