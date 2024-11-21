@@ -43,3 +43,17 @@
   }
 }
 
+@media screen and (max-width: 480px) {
+  .form {
+    padding: 0.5em;
+    input.text-field, textarea.comment {
+      border: solid 1px #bbb;
+      width: 90%;
+    }
+
+    .submit-button {
+      width: 80%;
+      height: 40px;
+    }
+  }
+}

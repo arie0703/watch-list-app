@@ -37,3 +37,27 @@
   padding: 2em;
 }
 
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  #root {
+    width: 100vw;
+    padding: 0;
+  }
+
+  .app-title {
+    font-size: 2.8rem;
+    padding: 0.5rem;
+  }
+
+  .pc {
+    display: none;
+  }
+  
+  .mobile {
+    display: block;
+  }
+}
+
