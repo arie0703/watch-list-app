@@ -1,0 +1,85 @@
+.new-room {
+
+  .new-room-button {
+    background: #64de64;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 180px;
+    display: block;
+    margin: 20px auto;
+    opacity: 0.8;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+      transition: 0.5s;
+    }
+  }
+}
+
+input.text-field {
+  padding: 12px;
+  font-size: 15px;
+  outline: none;
+  display: block;
+  min-width: 70%;
+  margin: 10px auto;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+.submit-button {
+  background: #ffa808;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 180px;
+  display: block;
+  margin: 20px auto;
+  opacity: 0.8;
+
+  &:hover {
+    &:not([disabled]) {
+      cursor: pointer;
+      opacity: 1;
+      transition: 0.5s;
+    }
+  }
+}
+
+.new-room-modal-content {
+  p, code {
+    margin: 12px 55px;
+  }
+
+  input {
+    background-color: #eee;
+  }
+
+  .form-message-pass {
+    p {
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px;
+    }
+  }
+
+  .form-message-error {
+    background-color: #fad1d1;
+    padding: 2px;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .new-room-modal-content {
+    p, code {
+      margin: 10px;
+    }
+  }
+}
