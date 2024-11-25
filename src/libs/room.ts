@@ -84,7 +84,7 @@ export const newRoom = async (
   const roomPass = generateRandomString();
   const encryptedRoomPass = encrypt(roomPass);
 
-  const { data, error } = await supabase.from("room")
+  const { error } = await supabase.from("room")
     .insert({
       name: roomName,
       entry_pass: encryptedRoomPass
