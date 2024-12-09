@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ExitButton } from "./components/exit-button";
 import { WatchList } from "./components/watch-list";
 import { FloatingButton } from "./components/floating-button";
+import { NewRoom } from "./components/new-room";
 
 function App() {
   const [cookies] = useCookies();
@@ -29,7 +30,12 @@ function App() {
     <>
       <h1 className="app-title">やりたいリスト</h1>
 
-      {!currentRoom && <Entry setCurrentRoom={setCurrentRoom} />}
+      {!currentRoom && (
+        <>
+          <Entry setCurrentRoom={setCurrentRoom} />
+          <NewRoom setCurrentRoom={setCurrentRoom}/>
+        </>
+      )}
 
       {currentRoom && (
         <>
