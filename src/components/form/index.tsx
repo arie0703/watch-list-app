@@ -25,18 +25,18 @@ export const Form = ({ roomUUID }: FormProps) => {
         <div className={styles["form"]}>
           <input
             className={styles["text-field"]}
-            placeholder="Title"
+            placeholder="タイトル"
             {...register("title")}
           ></input>
 
           <textarea
             className={`${styles["text-field"]} ${styles["comment"]}`}
-            placeholder="Comment"
+            placeholder="コメント(任意)"
             {...register("comment")}
           ></textarea>
 
-          <button className={styles["submit-button"]} type="submit">
-            Add
+          <button className="orange-button-primary" type="submit">
+            追加
           </button>
         </div>
       </form>

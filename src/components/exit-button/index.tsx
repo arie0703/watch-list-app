@@ -6,7 +6,7 @@ interface ExitButtonProps {
 }
 
 export const ExitButton = ({ setCurrentRoom }: ExitButtonProps) => {
-  const [_, setCookie] = useCookies();
+  const [, setCookie] = useCookies();
 
   const exitRoom = () => {
     // session_idを削除することで、入室状況がリセットされる
@@ -21,7 +21,7 @@ export const ExitButton = ({ setCurrentRoom }: ExitButtonProps) => {
           exitRoom();
         }}
       >
-        Exit Room
+        退出する
       </button>
     </div>
   );

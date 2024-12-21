@@ -11,7 +11,7 @@ interface EntryProps {
 export const Entry = ({ setCurrentRoom }: EntryProps) => {
   const formMethods = useForm<EntryRoomFormInput>();
   const { register, handleSubmit } = formMethods;
-  const [_, setCookie] = useCookies();
+  const [, setCookie] = useCookies();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,8 +48,8 @@ export const Entry = ({ setCurrentRoom }: EntryProps) => {
             {...register("roomPass")}
           ></input>
 
-          <button className={styles["submit-button"]} type="submit">
-            Entry
+          <button className="orange-button-primary" type="submit">
+            入室する
           </button>
         </div>
       </form>
