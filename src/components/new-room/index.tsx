@@ -17,7 +17,7 @@ export const NewRoom = ({ setCurrentRoom }: NewRoomProps) => {
 
   const formMethods = useForm<NewRoomFormInput>();
   const { register, handleSubmit, reset } = formMethods;
-  const [_, setCookie] = useCookies();
+  const [, setCookie] = useCookies();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,8 +43,8 @@ export const NewRoom = ({ setCurrentRoom }: NewRoomProps) => {
 
   return (
     <div className={styles["new-room"]}>
-      <button className={styles["new-room-button"]} onClick={() => setIsOpen(true)}>
-        New Room
+      <button className="orange-button-secondary" onClick={() => setIsOpen(true)}>
+        ルームを作成
       </button>
 
       {/* Modal */}
@@ -67,7 +67,7 @@ export const NewRoom = ({ setCurrentRoom }: NewRoomProps) => {
                 {...register("roomName")}
               ></input>
 
-              <button className={styles["submit-button"]} type="submit" disabled={newRoomResponse?.isSuccess}>
+              <button className="orange-button-primary" type="submit" disabled={newRoomResponse?.isSuccess}>
                 ルームを作成
               </button>
             </div>
