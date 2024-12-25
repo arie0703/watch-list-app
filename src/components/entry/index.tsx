@@ -11,7 +11,7 @@ interface EntryProps {
 export const Entry = ({ setCurrentRoom }: EntryProps) => {
   const formMethods = useForm<EntryRoomFormInput>();
   const { register, handleSubmit } = formMethods;
-  const [_, setCookie] = useCookies();
+  const [, setCookie] = useCookies();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,6 +35,7 @@ export const Entry = ({ setCurrentRoom }: EntryProps) => {
     <FormProvider {...formMethods}>
       <form onSubmit={onSubmit}>
         <div className={styles["entry-form"]}>
+          <small>ルーム名 / パスワードを入力してください</small>
           <input
             className={styles["text-field"]}
             placeholder="Room Name"
@@ -48,8 +49,8 @@ export const Entry = ({ setCurrentRoom }: EntryProps) => {
             {...register("roomPass")}
           ></input>
 
-          <button className={styles["submit-button"]} type="submit">
-            Entry
+          <button className="orange-button-primary" type="submit">
+            入室する
           </button>
         </div>
       </form>

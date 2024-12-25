@@ -49,16 +49,25 @@ export const entryRoom = async (
     };
   }
 
-  const decryptedRoomPass = decrypt(data[0].entry_pass);
+  try {
+    const decryptedRoomPass = decrypt(data[0].entry_pass);
 
-  if (decryptedRoomPass != roomPass) {
+    if (decryptedRoomPass != roomPass) {
+      return {
+        status: 400,
+        message: '入室に失敗しました',
+        isSuccess: false,
+        error: 'ルーム名、もしくはパスワードが間違っています'
+      }
+    } 
+  } catch(e) {
     return {
-      status: 400,
+      status: 500,
       message: '入室に失敗しました',
       isSuccess: false,
-      error: 'ルーム名、もしくはパスワードが間違っています'
+      error: '復号処理に失敗しました'
     }
-  } 
+  }
 
   const sessionID = generateRandomString();
   console.log("セッションが作成されました");

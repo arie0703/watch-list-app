@@ -8,6 +8,7 @@ import { ExitButton } from "./components/exit-button";
 import { WatchList } from "./components/watch-list";
 import { FloatingButton } from "./components/floating-button";
 import { NewRoom } from "./components/new-room";
+import { Hint } from "./components/hint";
 
 function App() {
   const [cookies] = useCookies();
@@ -34,6 +35,7 @@ function App() {
         <>
           <Entry setCurrentRoom={setCurrentRoom} />
           <NewRoom setCurrentRoom={setCurrentRoom}/>
+          <Hint />
         </>
       )}
 
