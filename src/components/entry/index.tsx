@@ -35,6 +35,7 @@ export const Entry = ({ setCurrentRoom }: EntryProps) => {
     <FormProvider {...formMethods}>
       <form onSubmit={onSubmit}>
         <div className={styles["entry-form"]}>
+          <small>ルーム名 / パスワードを入力してください</small>
           <input
             className={styles["text-field"]}
             placeholder="Room Name"
