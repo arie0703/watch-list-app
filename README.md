@@ -31,3 +31,17 @@
 
 ## アプリケーションの起動
 `yarn dev`
+
+## supabase (ローカル)
+
+### supabaseコンテナの起動/停止
+
+`yarn supabase start`
+
+`yarn supabase stop`
+
+### マイグレーション
+
+`yarn supabase migration new create_XXXXX_table`
+
+`yarn supabase migration up`
