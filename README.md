@@ -45,3 +45,15 @@
 `yarn supabase migration new create_XXXXX_table`
 
 `yarn supabase migration up`
+
+### Edge Function
+
+ローカルで関数を実行
+
+`supabase functions serve --no-verify-jwt`
+
+```sh
+curl --request POST 'http://localhost:54321/functions/v1/create-room' \
+  --header 'Content-Type: application/json' \
+  --data '{ "roomName":"TEST" }'
+```
