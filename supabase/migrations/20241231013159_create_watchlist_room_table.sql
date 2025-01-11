@@ -2,7 +2,8 @@ CREATE TABLE if not exists room (
   uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   created_at TIMESTAMPTZ NOT NULL default now(),
   name TEXT NOT NULL,
-  entry_pass TEXT NOT NULL
+  entry_pass TEXT NOT NULL,
+  UNIQUE (name)
 );
 
 create table if not exists watchlist (

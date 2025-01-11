@@ -1,6 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { hashSync } from 'https://deno.land/x/bcrypt/mod.ts';
-import { supabase, generateRandomString } from "../common.ts"
+import { supabase, generateRandomString, headers } from "../common.ts"
 
 const InsertRoomData = async(roomName: string, entry_pass: string) => {
 
@@ -28,9 +28,15 @@ const InsertRoomData = async(roomName: string, entry_pass: string) => {
 }
 
 Deno.serve(async (req) => {
-  const { roomName } = await req.json()
+  // TODO: preflight requestの共通化
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { 
+      headers: headers,
+    })
+  }
 
   try {
+    const { roomName } = await req.json()
     // ランダムなroomパスワードを作成する
     const roomPass = generateRandomString();
     // bcryptを使ってパスワードをハッシュ化
@@ -42,7 +48,7 @@ Deno.serve(async (req) => {
 
     const body = {
       message: "ルームを作成しました",
-      entryPass: roomPass,
+      roomPass: roomPass,
       roomUUID: roomUUID,
       sessionID: sessionID,
       isSuccess: true
@@ -52,17 +58,22 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify(body),
       { 
-        headers: { 'Content-Type': 'application/json'},
+        headers: headers,
         status: 201,
       }
     );
   } catch (error) {
+    console.error(error)
     return new Response(
       JSON.stringify({ 
         message: "ルーム作成処理に失敗しました",
-        error: error 
+        status: 500,
+        error: error,
+        isSuccess: false
       }), 
-      { status: 500 }
+      { 
+        headers: headers,
+      }
     );
   }
 })
