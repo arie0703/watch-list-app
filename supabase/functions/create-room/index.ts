@@ -1,6 +1,7 @@
-import "jsr:@supabase/functions-js/edge-runtime.d.ts"
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { hashSync } from 'https://deno.land/x/bcrypt/mod.ts';
-import { supabase, generateRandomString, headers } from "../common.ts"
+import { supabase, generateRandomString, headers } from "../_shared/consts.ts";
+import { ResponseBody } from "../_shared/types.ts";
 
 const InsertRoomData = async(roomName: string, entry_pass: string) => {
 
@@ -46,12 +47,12 @@ Deno.serve(async (req) => {
     // 作成したルームのセッションを作る
     const sessionID = generateRandomString();
 
-    const body = {
+    const body: ResponseBody = {
       message: "ルームを作成しました",
       roomPass: roomPass,
       roomUUID: roomUUID,
       sessionID: sessionID,
-      isSuccess: true
+      isSuccess: true,
     }
 
     // レスポンスとしてハッシュ化されたパスワードを返す
@@ -64,13 +65,15 @@ Deno.serve(async (req) => {
     );
   } catch (error) {
     console.error(error)
+
+    const body: ResponseBody = { 
+      message: "ルーム作成処理に失敗しました",
+      status: 500,
+      error: error,
+    };
+
     return new Response(
-      JSON.stringify({ 
-        message: "ルーム作成処理に失敗しました",
-        status: 500,
-        error: error,
-        isSuccess: false
-      }), 
+      JSON.stringify(body), 
       { 
         headers: headers,
       }

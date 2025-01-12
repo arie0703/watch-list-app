@@ -1,7 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js"
 
 export const supabase = createClient(
-  "http://host.docker.internal:54321",
+  Deno.env.get('SUPABASE_URL')!,
   Deno.env.get('SUPABASE_ANON_KEY')!
 )
 

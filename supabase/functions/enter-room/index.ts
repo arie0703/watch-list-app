@@ -1,8 +1,8 @@
 import { compareSync } from 'https://deno.land/x/bcrypt/mod.ts';
-import { supabase, generateRandomString, headers } from "../common.ts"
+import { supabase, generateRandomString, headers } from "../_shared/consts.ts";
+import { ResponseBody } from '../_shared/types.ts';
 
 Deno.serve(async (req) => {
-  console.log("invoked")
   // TODO: preflight requestの共通化
   if (req.method === 'OPTIONS') {
     return new Response('ok', { 
@@ -13,13 +13,15 @@ Deno.serve(async (req) => {
   const { roomName, roomPass } = await req.json();
 
   if (!roomName || !roomPass) {
+    const body: ResponseBody = {
+      status: 400,
+      message: "パラメータにroomName, roomPassを渡してください"
+    };
+
     return new Response(
-      JSON.stringify({
-        message: "パラメータにroomName, roomPassを渡してください"
-      }),
+      JSON.stringify(body),
       { 
         headers: headers,
-        status: 400
       }
     );
   }
@@ -30,12 +32,14 @@ Deno.serve(async (req) => {
   .limit(1);
 
   if (error) {
+    const body: ResponseBody = {
+      message: "入室処理に失敗しました",
+      error: error,
+      status: 500,
+    };
+
     return new Response(
-      JSON.stringify({
-        message: "入室処理に失敗しました",
-        error: error,
-        status: 500,
-      }),
+      JSON.stringify(body),
       { 
         headers: headers,
       }
@@ -43,11 +47,13 @@ Deno.serve(async (req) => {
   }
 
   if (!data[0]) {
+    const body = {
+      message: "部屋が見つかりませんでした",
+      status: 400,
+    };
+
     return new Response(
-      JSON.stringify({
-        message: "部屋が見つかりませんでした",
-        status: 400,
-      }),
+      JSON.stringify(body),
       { 
         headers: headers,
       }
@@ -60,8 +66,9 @@ Deno.serve(async (req) => {
 
     const sessionID = generateRandomString();
 
-    const body = {
+    const body: ResponseBody = {
       message: "入室に成功しました",
+      status: 200,
       roomUUID: data[0].uuid,
       sessionID: sessionID,
     };
@@ -74,11 +81,14 @@ Deno.serve(async (req) => {
       },
     );
   }
+
+  const body: ResponseBody = {
+    message: "パスワードが違います",
+    status: 400,
+  };
+
   return new Response(
-    JSON.stringify({
-      message: "パスワードが違います",
-      status: 400,
-    }),
+    JSON.stringify(body),
     { 
       headers: headers,
     }
