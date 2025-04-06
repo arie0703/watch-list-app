@@ -85,18 +85,36 @@
       }
     }
 
-    .delete-button {
-      background-color: transparent;
-      outline: none;
-      border: none;
-      border-radius: 5px;
-      padding: 4px;
-      color: #333;
+    .right-button-container {
+      display: flex;
 
-      &:hover {
-        cursor: pointer;
+      
+
+      button {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        color: #333;
+      
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.done-button {
+          background-color: #ffe0a3;
+          span {
+            font-weight: 700;
+          }
+          &:hover {
+            background-color: #fccd6f;
+            transition: 0.2s;
+          }
+        }
       }
     }
+    
   }
   
 }
