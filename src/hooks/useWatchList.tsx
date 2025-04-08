@@ -12,6 +12,7 @@ export const getWatchList = async (roomUUID: string) => {
     .from("watchlist")
     .select("*")
     .eq("room_uuid", roomUUID)
+    .eq("is_done", false)
     .order("id", { ascending: false });
 
   if (error) {
@@ -67,6 +68,20 @@ export const addLikes = async (id: number, currentLikes: number) => {
     throw error;
   }
   return { status: 200, data: data };
+};
+
+export const markItemAsDone = async (id: number) => {
+  const { data, error } = await supabase
+    .from("watchlist")
+    .update({
+      is_done: true,
+    })
+    .eq("id", id);
+
+  if (error) {
+    throw error;
+  }
+  return { status: 200, data: data, message: "完了済みとしてマークしました" };
 };
 
 export const useWatchList = (roomUUID: string) => {

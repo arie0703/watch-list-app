@@ -1,0 +1,1 @@
+ALTER TABLE watchlist ADD COLUMN is_done BOOLEAN DEFAULT false;

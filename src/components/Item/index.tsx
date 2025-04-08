@@ -1,4 +1,8 @@
-import { addLikes, deleteWatchList } from "../../hooks/useWatchList";
+import {
+  addLikes,
+  deleteWatchList,
+  markItemAsDone,
+} from "../../hooks/useWatchList";
 import styles from "./item.module.scss";
 import likeSvg from "../../assets/like.svg";
 import likeFilledSvg from "../../assets/like_filled.svg";
@@ -64,13 +68,23 @@ export const Item = ({ id, name, comment, likes }: ItemProps) => {
 
             <span className={styles["like-number"]}>{likes}</span>
           </div>
-          <div className={styles["delete-button"]}>
-            <button
-              className={styles["delete-button"]}
-              onClick={() => deleteWatchList(id)}
-            >
-              削除する
-            </button>
+          <div className={styles["right-button-container"]}>
+            <div className={styles["done-button"]}>
+              <button
+                className={styles["done-button"]}
+                onClick={() => markItemAsDone(id)}
+              >
+                <span>完了済み</span>
+              </button>
+            </div>
+            <div className={styles["delete-button"]}>
+              <button
+                className={styles["delete-button"]}
+                onClick={() => deleteWatchList(id)}
+              >
+                削除する
+              </button>
+            </div>
           </div>
         </div>
       </Modal>
