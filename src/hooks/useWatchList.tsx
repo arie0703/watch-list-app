@@ -21,6 +21,20 @@ export const getWatchList = async (roomUUID: string) => {
   return data;
 };
 
+export const getDoneWatchList = async (roomUUID: string) => {
+  const { data, error } = await supabase
+    .from("watchlist")
+    .select("*")
+    .eq("room_uuid", roomUUID)
+    .eq("is_done", true)
+    .order("id", { ascending: false });
+
+  if (error) {
+    throw error;
+  }
+  return data;
+};
+
 export const addWatchList = async (
   itemName: string,
   comment: string,

@@ -41,6 +41,12 @@
   display: none;
 }
 
+.done-items-section {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (max-width: 480px) {
   #root {
     width: 100vw;
