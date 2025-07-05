@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: JavaScript/TypeScriptファイル向けの基本的な命名規則とスタイルガイド
+globs: "**/*.{js,ts,jsx,tsx}"
+---
+- 変数名とプロパティ名はキャメルケース（`camelCase`）を使用してください。
+- 関数名やメソッド名は、処理内容を表す動詞から始めてください（例: `getUserData`, `calculateTotal`）。
