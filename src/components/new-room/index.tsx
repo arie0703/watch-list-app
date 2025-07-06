@@ -115,7 +115,7 @@ export const NewRoom = ({ setCurrentRoom }: NewRoomProps) => {
                   <button
                     className="orange-button-secondary"
                     onClick={() =>
-                      copyPasswordToClipboard(newRoomResponse.roomInfo.pass)
+                      copyPasswordToClipboard(newRoomResponse.roomInfo!.pass)
                     }
                   >
                     パスワードをコピー
