@@ -9,10 +9,13 @@ import { WatchList } from "./components/watch-list";
 import { FloatingButton } from "./components/floating-button";
 import { NewRoom } from "./components/new-room";
 import { Hint } from "./components/hint";
+import { DoneItemsButton } from "./components/done-items-button";
+import { DoneItemsModal } from "./components/done-items-modal";
 
 function App() {
   const [cookies] = useCookies();
   const [currentRoom, setCurrentRoom] = useState<string | null>(null);
+  const [isDoneItemsModalOpen, setIsDoneItemsModalOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -34,13 +37,16 @@ function App() {
       {!currentRoom && (
         <>
           <Entry setCurrentRoom={setCurrentRoom} />
-          <NewRoom setCurrentRoom={setCurrentRoom}/>
+          <NewRoom setCurrentRoom={setCurrentRoom} />
           <Hint />
         </>
       )}
 
       {currentRoom && (
         <>
+          <div className="done-items-section">
+            <DoneItemsButton onClick={() => setIsDoneItemsModalOpen(true)} />
+          </div>
           <WatchList roomUUID={currentRoom} />
           <div className="pc">
             <Form roomUUID={currentRoom} />
@@ -49,6 +55,11 @@ function App() {
           <div className="mobile">
             <FloatingButton roomUUID={currentRoom} />
           </div>
+          <DoneItemsModal
+            roomUUID={currentRoom}
+            isOpen={isDoneItemsModalOpen}
+            onClose={() => setIsDoneItemsModalOpen(false)}
+          />
         </>
       )}
     </>

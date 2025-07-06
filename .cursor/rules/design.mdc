@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: designについて
+globs: "**/*/*.scss"
+---
+- ボタンなどの背景色としてはカラーコード`#ffd767`を適用してください
+- 重要な処理 (submit)等のボタンの背景色はカラーコード`#ff8c00`を適用してください
+- コンポーネントの背景色は薄めのオレンジ`#fff7e3`を適用してください
