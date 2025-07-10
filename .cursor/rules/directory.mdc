@@ -1,11 +1,7 @@
 ---
-description: 
-globs: 
-alwaysApply: false
----
----
 description: src/配下のディレクトリ構成について
 globs: "src/**/*"
+alwaysApply: false
 ---
 - assets/配下にsvgなどのアセットデータを格納します
 - components/配下に再利用可能なコンポーネント（buttonなど）のtsxファイルを作成します
