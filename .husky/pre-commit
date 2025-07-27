@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running TypeScript type check..."
+npx tsc --noEmit
+
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript type check failed. Please fix the errors before committing."
+  exit 1
+fi
+
+echo "✅ TypeScript type check passed!"
+echo "🔍 Running lint-staged..."
+npx lint-staged

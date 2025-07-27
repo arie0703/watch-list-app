@@ -83,16 +83,22 @@ export const useHealthCheck = () => {
         });
       }
     } catch (error) {
+      // エラーオブジェクトの型を安全に処理
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      const errorStack = error instanceof Error ? error.stack : undefined;
+      const errorType = error?.constructor?.name || "Unknown";
+
       // ネットワークエラーかどうかを判定
       const isNetworkError =
         error instanceof TypeError &&
-        (error.message.includes("fetch") || error.message.includes("network"));
+        (errorMessage.includes("fetch") || errorMessage.includes("network"));
 
       // エラーの詳細情報をコンソールに出力
       console.error("Health check error:", {
-        type: error.constructor.name,
-        message: error.message,
-        stack: error.stack,
+        type: errorType,
+        message: errorMessage,
+        stack: errorStack,
         isNetworkError,
         timestamp: new Date().toISOString(),
       });
