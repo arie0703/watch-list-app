@@ -11,11 +11,15 @@ import { NewRoom } from "./components/new-room";
 import { Hint } from "./components/hint";
 import { DoneItemsButton } from "./components/done-items-button";
 import { DoneItemsModal } from "./components/done-items-modal";
+import { useHealthCheck } from "./hooks/useHealthCheck";
+import { SystemError } from "./components/system-error";
 
 function App() {
   const [cookies] = useCookies();
   const [currentRoom, setCurrentRoom] = useState<string | null>(null);
   const [isDoneItemsModalOpen, setIsDoneItemsModalOpen] = useState(false);
+  const { isHealthy, isLoading, error, errorType, statusCode, refetch } =
+    useHealthCheck();
 
   useEffect(() => {
     (async () => {
@@ -29,6 +33,18 @@ function App() {
       }
     })();
   }, [cookies]);
+
+  // システムエラーが発生している場合はエラー画面を表示
+  if (!isLoading && !isHealthy && error) {
+    return (
+      <SystemError
+        error={error}
+        errorType={errorType}
+        statusCode={statusCode}
+        onRetry={refetch}
+      />
+    );
+  }
 
   return (
     <>
