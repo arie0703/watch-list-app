@@ -119,9 +119,8 @@ export const useHealthCheck = () => {
     checkHealth();
 
     // 定期的にヘルスチェックを実行（5分間隔）
-    const interval = setInterval(checkHealth, 5 * 60 * 1000);
-
-    return () => clearInterval(interval);
+    // const interval = setInterval(checkHealth, 5 * 60 * 1000);
+    // return () => clearInterval(interval);
   }, []);
 
   return {
