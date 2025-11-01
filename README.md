@@ -1,7 +1,9 @@
 # Watchlist App
+
 やりたいことをメモ・シェアするアプリ
 
 ## 使用技術
+
 - React
 - Vite
 - Supabase (Postgres)
@@ -30,6 +32,7 @@
 | created_at | timestamp | |
 
 ## アプリケーションの起動
+
 `yarn dev`
 
 ## supabase (ローカル)
